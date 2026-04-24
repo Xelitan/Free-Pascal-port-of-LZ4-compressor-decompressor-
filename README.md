@@ -11,10 +11,10 @@ Add Lz4Simple.pas to your uses
 ```
 function LZ4(Uncompressed: AnsiString): AnsiString;
 function UnLZ4(Compressed: AnsiString): AnsiString;
-function CompressFile(Infilename, Outfilename: String): Integer;
-function DecompressFile(Infilename, Outfilename: String): Integer;
-function CompressStreams(Infile, Outfile: TStream): Integer;
-function DecompressStreams(Infile, Outfile: TStream): Integer;
+function LZ4CompressFile(const Infilename, Outfilename: String): Integer;
+function LZ4DecompressFile(const Infilename, Outfilename: String): Integer;
+function LZ4CompressStreams(Infile, Outfile: TStream): Integer;
+function LZ4DecompressStreams(Infile, Outfile: TStream): Integer;
 ```
 
 ## License
