@@ -8,28 +8,28 @@ interface
 
 uses Classes, SysUtils, LZ4Frame;
 
-function CompressStreams(Infile, Outfile: TStream): Integer;
-function DecompressStreams(Infile, Outfile: TStream): Integer;
+function LZ4CompressStreams(Infile, Outfile: TStream): Integer;
+function LZ4DecompressStreams(Infile, Outfile: TStream): Integer;
 
-function CompressFile(Infilename, Outfilename: String): Integer;
-function DecompressFile(Infilename, Outfilename: String): Integer;
+function LZ4CompressFile(const Infilename, Outfilename: String): Integer;
+function LZ4DecompressFile(const Infilename, Outfilename: String): Integer;
 
 function LZ4(Uncompressed: AnsiString): AnsiString;
 function UnLZ4(Compressed: AnsiString): AnsiString;
 
 implementation
 
-function CompressStreams(Infile, Outfile: TStream): Integer;
+function LZ4CompressStreams(Infile, Outfile: TStream): Integer;
 begin
   Result := TLZ4Frame.CompressStream(Infile, Outfile);
 end;
 
-function DecompressStreams(Infile, Outfile: TStream): Integer;
+function LZ4DecompressStreams(Infile, Outfile: TStream): Integer;
 begin
   Result := TLZ4Frame.DecompressStream(Infile, Outfile);
 end;
 
-function CompressFile(Infilename, Outfilename: String): Integer;
+function LZ4CompressFile(const Infilename, Outfilename: String): Integer;
 var
   InFile: TFileStream;
   OutFile: TFileStream;
@@ -54,7 +54,7 @@ begin
         Exit;
       end;
 
-      Result := CompressStreams(InFile, OutFile);
+      Result := LZ4CompressStreams(InFile, OutFile);
     finally
       OutFile.Free;
     end;
@@ -63,7 +63,7 @@ begin
   end;
 end;
 
-function DecompressFile(Infilename, Outfilename: String): Integer;
+function LZ4DecompressFile(const Infilename, Outfilename: String): Integer;
 var
   InFile: TFileStream;
   OutFile: TFileStream;
@@ -88,7 +88,7 @@ begin
         Exit;
       end;
 
-      Result := DecompressStreams(InFile, OutFile);
+      Result := LZ4DecompressStreams(InFile, OutFile);
     finally
       OutFile.Free;
     end;
@@ -111,7 +111,7 @@ begin
     InStream.Position := 0;
 
     // pack
-    if CompressStreams(InStream, OutStream) <> 0 then
+    if LZ4CompressStreams(InStream, OutStream) <> 0 then
       Exit;
 
     // stream to string
@@ -141,7 +141,7 @@ begin
     InStream.Position := 0;
 
     // unpack
-    if DecompressStreams(InStream, OutStream) <> 0 then
+    if LZ4DecompressStreams(InStream, OutStream) <> 0 then
       Exit;
 
     // stream to string
