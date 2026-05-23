@@ -4,6 +4,8 @@ unit LZ4Simple;
 //Port by www.xelitan.com
 //License: BSD 2-Clause
 
+{$mode delphi}
+
 interface
 
 uses Classes, SysUtils, LZ4Frame;
