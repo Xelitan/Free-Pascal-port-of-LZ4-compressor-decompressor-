@@ -16,8 +16,8 @@ function LZ4DecompressStreams(Infile, Outfile: TStream): Integer;
 function LZ4CompressFile(const Infilename, Outfilename: String): Integer;
 function LZ4DecompressFile(const Infilename, Outfilename: String): Integer;
 
-function LZ4(Uncompressed: AnsiString): AnsiString;
-function UnLZ4(Compressed: AnsiString): AnsiString;
+function LZ4(const Uncompressed: AnsiString): AnsiString;
+function UnLZ4(const Compressed: AnsiString): AnsiString;
 
 implementation
 
@@ -99,7 +99,7 @@ begin
   end;
 end;
 
-function LZ4(Uncompressed: AnsiString): AnsiString;
+function LZ4(const Uncompressed: AnsiString): AnsiString;
 var
   InStream, OutStream: TMemoryStream;
 begin
@@ -129,7 +129,7 @@ begin
   end;
 end;
 
-function UnLZ4(Compressed: AnsiString): AnsiString;
+function UnLZ4(const Compressed: AnsiString): AnsiString;
 var
   InStream, OutStream: TMemoryStream;
 begin
